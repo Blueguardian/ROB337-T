@@ -26,14 +26,17 @@ bool compDist (double ar1[2], double ar2[2]){
   return ar1x < ar2x;
 }
 
-void initTurtlePosition(double x, double y, ros::ServiceClient teleport_client, ros::ServiceClient pen_client, turtlesim::TeleportAbsolute srv, turtlesim::SetPen pen_srv){
+void initTurtlePosition(double x, double y, int randomNumber1, int randomNumber2, int randomNumber3, ros::ServiceClient teleport_client, ros::ServiceClient pen_client, turtlesim::TeleportAbsolute srv, turtlesim::SetPen pen_srv){
   pen_srv.request.off = true;
   pen_client.call(pen_srv);
   srv.request.x = x;
   srv.request.y = y;
   teleport_client.call(srv);
   pen_srv.request.off = false;
-  pen_srv.request.width = 2;
+  pen_srv.request.width = 10;
+  pen_srv.request.r = randomNumber1;
+  pen_srv.request.g = randomNumber2;
+  pen_srv.request.b = randomNumber3;
   pen_client.call(pen_srv);
 }
 
@@ -87,6 +90,18 @@ while(flag || (d < 1)){
 }
 
 int main(int argc, char *argv[]) {
+  srand(time(NULL));
+  int randomNumber1 = 0;
+  int randomNumber2 = 0;
+  int randomNumber3 = 0;
+
+  randomNumber1 = rand() %100+1;
+  randomNumber2 = rand() %100+2;
+  randomNumber3 = rand() %100+3;
+  randomNumber1 *= 2;
+  randomNumber2 *= 2;
+  randomNumber3 *= 2;
+
   ros::init(argc, argv, "draw_turtle");
   ros::NodeHandle nh;
   ros::service::waitForService("/turtle1/teleport_absolute", -1);
@@ -102,7 +117,7 @@ int main(int argc, char *argv[]) {
     startY = atof(argv[2]);
   }
 
-  initTurtlePosition(startX, startY,teleport_client, pen_client, srv, pen_srv);
+  initTurtlePosition(startX, startY, randomNumber1, randomNumber2, randomNumber3, teleport_client, pen_client, srv, pen_srv);
   loop_rate.sleep();
   double coordinates[10][2];
 
@@ -124,6 +139,9 @@ int main(int argc, char *argv[]) {
     }
     else{
       pen_srv.request.off = false;
+      pen_srv.request.r = randomNumber1;
+    pen_srv.request.g = randomNumber2;
+    pen_srv.request.b = randomNumber3;
       pen_client.call(pen_srv);
       moveTurtle(coordinates[i][0], coordinates[i][1], teleport_client, srv);
       loop_rate.sleep();
