@@ -7,6 +7,8 @@
 #include "time.h"
 #include "string.h"
 
+//WOWOWOWOWOWO CHANGES ARE MADE NOW!!!
+
 double euDist (double x1, double y1){
   double centerx = 5.544445;
   double centery = 5.544445;
