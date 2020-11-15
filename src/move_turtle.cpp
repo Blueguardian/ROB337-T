@@ -6,6 +6,12 @@
 #include <stdlib.h>
 #include <time.h>
 
+<<<<<<< HEAD
+=======
+//THIS COMMENT IS A TEST
+
+int main(int argc, char const *argv[])
+>>>>>>> p1-robot
 
 int main(int argc, char *argv[])
 {
