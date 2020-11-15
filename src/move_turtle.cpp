@@ -8,8 +8,6 @@
 
 //THIS COMMENT IS A TEST
 
-int main(int argc, char const *argv[])
-
 int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "move_turtle");
