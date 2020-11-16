@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-//THIS COMMENT IS A TEST
+//THIS COMMENT IS TEST NR.2
 
 int main(int argc, char *argv[])
 {
